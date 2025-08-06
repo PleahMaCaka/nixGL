@@ -12,6 +12,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           enable32bits = isIntelX86Platform;
           enableIntelX86Extensions = isIntelX86Platform;
+          config = { allowUnfree = true; };
         };
       in rec {
 
@@ -39,6 +40,7 @@
               pkgs = final;
               enable32bits = isIntelX86Platform;
               enableIntelX86Extensions = isIntelX86Platform;
+              config = { allowUnfree = true; };
             };
           };
       };
