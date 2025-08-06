@@ -8,11 +8,14 @@
     (flake-utils.lib.eachDefaultSystem (system:
       let
         isIntelX86Platform = system == "x86_64-linux";
+        nixpkgsWithConfig = import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+        };
         pkgs = import ./default.nix {
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgsWithConfig;
           enable32bits = isIntelX86Platform;
           enableIntelX86Extensions = isIntelX86Platform;
-          config = { allowUnfree = true; };
         };
       in rec {
 
@@ -40,7 +43,6 @@
               pkgs = final;
               enable32bits = isIntelX86Platform;
               enableIntelX86Extensions = isIntelX86Platform;
-              config = { allowUnfree = true; };
             };
           };
       };
